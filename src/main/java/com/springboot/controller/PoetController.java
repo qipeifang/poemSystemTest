@@ -48,6 +48,7 @@ public class PoetController {
         result.setData(listpoes);
         return result;
     }
+
     @PostMapping("/deletepoet")
     @ResponseBody
     public Result delete(@RequestBody String id,HttpSession session){

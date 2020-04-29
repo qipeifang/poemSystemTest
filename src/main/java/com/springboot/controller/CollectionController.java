@@ -65,6 +65,7 @@ public class CollectionController {
         result.setData(listcolls);
         return result;
     }
+
     @PostMapping("/deletecoll")
     @ResponseBody
     public Result delete(@RequestBody String id,HttpSession session){

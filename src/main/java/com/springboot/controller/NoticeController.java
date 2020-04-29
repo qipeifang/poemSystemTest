@@ -49,6 +49,7 @@ public class NoticeController {
         result.setData(listnots);
         return result;
     }
+
     @PostMapping("/deletenotic")
     @ResponseBody
     public Result delete(@RequestBody String id, HttpSession session){
