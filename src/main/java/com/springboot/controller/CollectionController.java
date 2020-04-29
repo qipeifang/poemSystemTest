@@ -52,9 +52,10 @@ public class CollectionController {
     @PostMapping("/listcollections")
     @ResponseBody
     public Result listallcollbykw(@RequestBody String kw,HttpSession session){
+        if (kw==null||kw.equals("")) kw="%%";
         if (kw!=null) kw="%"+kw+"%";
-        if (kw==null) kw="%%";
-        System.out.println(kw);
+        System.out.println("testetstjdkcsdjf");
+        System.out.println("hhhhhhhh"+kw);
         TUser usersession=(TUser) (session.getAttribute("usersession"));
         String email=usersession.getEmail();
         Result result = new Result();
@@ -64,13 +65,14 @@ public class CollectionController {
         result.setData(listcolls);
         return result;
     }
-    @GetMapping("/deletecoll")
+    @PostMapping("/deletecoll")
     @ResponseBody
-    public Result delete(@RequestBody Integer id,HttpSession session){
+    public Result delete(@RequestBody String id,HttpSession session){
         TUser usersession=(TUser) (session.getAttribute("usersession"));
         String email=usersession.getEmail();
         Result result = new Result();
-        collectionService.deleteById(id);
+        Integer id1=Integer.valueOf(id);
+        collectionService.deleteById(id1);
         result.setDescription("删除成功");//添加返回信息描述
         //添加返回数据
         String kw="%%";
