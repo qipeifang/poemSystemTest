@@ -1,23 +1,26 @@
 package com.springboot.entity;
-
 import javax.persistence.*;
 
 @Entity
 @Table(name = "T_Poet", schema = "test")
 public class TPoet {
-    //诗人表
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false, updatable = false)
     private long id;//自增
-    private String poetname;//诗人名
-    private String life;//生平介绍
-    private String dynasty;//朝代
-    private String gender;//“男” “女”
-    private String img;//画像
+    private String name;//诗人名
+    private String name_zi;
+    private String name_hao;
+    private String birthday;
+    private String deathday;//
+    private int gender;
+    private int dynastyid;
+    private String intro;
+    private String masterwork;
 
     public TPoet() {
     }
+
 
     public long getId() {
         return id;
@@ -27,43 +30,75 @@ public class TPoet {
         this.id = id;
     }
 
-    public String getPoetname() {
-        return poetname;
+    public String getName() {
+        return name;
     }
 
-    public void setPoetname(String poetname) {
-        this.poetname = poetname;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getLife() {
-        return life;
+    public String getName_zi() {
+        return name_zi;
     }
 
-    public void setLife(String life) {
-        this.life = life;
+    public void setName_zi(String name_zi) {
+        this.name_zi = name_zi;
     }
 
-    public String getDynasty() {
-        return dynasty;
+    public String getName_hao() {
+        return name_hao;
     }
 
-    public void setDynasty(String dynasty) {
-        this.dynasty = dynasty;
+    public void setName_hao(String name_hao) {
+        this.name_hao = name_hao;
     }
 
-    public String getGender() {
+    public String getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
+    }
+
+    public String getDeathday() {
+        return deathday;
+    }
+
+    public void setDeathday(String deathday) {
+        this.deathday = deathday;
+    }
+
+    public int getGender() {
         return gender;
     }
 
-    public void setGender(String gender) {
+    public void setGender(int gender) {
         this.gender = gender;
     }
 
-    public String getImg() {
-        return img;
+    public int getDynastyid() {
+        return dynastyid;
     }
 
-    public void setImg(String img) {
-        this.img = img;
+    public void setDynastyid(int dynastyid) {
+        this.dynastyid = dynastyid;
+    }
+
+    public String getIntro() {
+        return intro;
+    }
+
+    public void setIntro(String intro) {
+        this.intro = intro;
+    }
+
+    public String getMasterwork() {
+        return masterwork;
+    }
+
+    public void setMasterwork(String masterwork) {
+        this.masterwork = masterwork;
     }
 }

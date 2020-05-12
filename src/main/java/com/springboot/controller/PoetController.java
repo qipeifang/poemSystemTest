@@ -21,11 +21,9 @@ public class PoetController {
 
     @GetMapping("/listpoets")
     @ResponseBody
-    public Result listallpoets(String kw, Model model, HttpSession session){
+    public Result listallpoets(String kw){
         if (kw!=null) kw="%"+kw+"%";
         if (kw==null) kw="%%";
-        TUser usersession=(TUser) (session.getAttribute("usersession"));
-        String email=usersession.getEmail();
         Result result = new Result();
         //通过输入的关键字展示信息
         List<TPoet> listpoes= poetService.showAll(kw);
@@ -62,6 +60,28 @@ public class PoetController {
         String kw="%%";
         //通过输入的关键字展示信息
         List<TPoet> listpoes= poetService.showAll(kw);
+        //放到data中
+        result.setData(listpoes);
+        return result;
+    }
+    @GetMapping("/getpoet")
+    @ResponseBody
+    public Result getpoet(){
+        String kw="%%";
+        Result result = new Result();
+        //通过输入的关键字展示信息
+        List<TPoet> listpoes= poetService.showAll(kw);
+        //放到data中
+        result.setData(listpoes);
+        return result;
+    }
+
+    @PostMapping("/displaypoetbyid")
+    @ResponseBody
+    public Result displaypoetbyid(@RequestBody String id,HttpSession session){
+        Result result = new Result();
+        Integer id1=Integer.valueOf(id);
+        List<TPoet> listpoes= poetService.displayPoet(id1);
         //放到data中
         result.setData(listpoes);
         return result;

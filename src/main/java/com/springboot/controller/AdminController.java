@@ -19,7 +19,8 @@ import java.util.List;
 
 //@Controller
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = {"http://localhost:3000"},allowCredentials = "true",allowedHeaders = {"X-Custom-Header"},
+        maxAge = 3600L, methods={RequestMethod.GET,RequestMethod.POST,RequestMethod.HEAD})
 public class AdminController {
     @Autowired
     private UserService userService;
@@ -160,7 +161,7 @@ public class AdminController {
     //添加、修改用户 id存在编辑用户信息，不存在则添加用户
     @PostMapping("/saveuser")
     @CrossOrigin
-    public Result save(@RequestBody TUser user, RedirectAttributes attr) {
+    public Result save(@RequestBody @Valid TUser user, RedirectAttributes attr) {
         Result result=new Result();
         try {
             //如果id为0 jpa的save方法起新增的作用;如果save不为0 那么jpa save方法起update作用
@@ -211,7 +212,7 @@ public class AdminController {
     }
 
     @PostMapping("/deleteusers")
-    public Result deletes(@RequestParam String ids) {
+    public Result deletes(String ids) {
         Result result=new Result();
         System.out.println("======" + ids);
         List<TUser> users = new ArrayList<>();

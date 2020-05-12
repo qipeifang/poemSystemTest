@@ -7,13 +7,12 @@ import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
-public interface UserService extends java.io.Serializable
- {
+public interface UserService extends java.io.Serializable{
     void addUser(TUser user);
     void modifyUser(TUser user);
     List<TUser> findEmail(String email);
+    List<TUser> findByEmailNotId(String email,long id);
     TUser checkUser(UserLogin user);
-    //管理员对用户的操作
     //管理员对用户的操作
     public void saveUser(TUser u)throws Exception;
     public List<TUser> findAll();
@@ -25,9 +24,10 @@ public interface UserService extends java.io.Serializable
 
     TUser findByEmail(String email);
 
+
     //分页查询
     Page<TUser> findBookNoCriteria(Integer page, Integer size);
-   //关键字分页查询
+    //关键字分页查询
     Page<TUser> findBookCriteria(Integer page, Integer size,String kw);
 
     void save(TUser user);
@@ -37,11 +37,10 @@ public interface UserService extends java.io.Serializable
 //    @Transactional
 //    public void saveUser(TUser user);
 
-     //批量删除
+    //批量删除
 //     Result deleteUserByCheck(String ids);
-     public void updataUser(TUser u);
-     public void deleteusers(List<Long> userList);
-
+    public void updataUser(TUser u);
+    public void deleteusers(List<Long> userList);
 }
 
 

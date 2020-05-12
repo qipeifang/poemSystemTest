@@ -33,12 +33,6 @@ public class UserController {
 	@Autowired
 	UserService userService;
 
-	@GetMapping("/login")
-	public String login(Model model){
-		model.addAttribute("userLogin",new UserLogin());
-		return "login";
-	}
-
 	@PostMapping("/login")
 	@ResponseBody
 	public Result login(UserLogin user, BindingResult result,
@@ -68,10 +62,13 @@ public class UserController {
 		result2.setCode(400);
 		return result2;
 	}
-	//注册跳转
-	@RequestMapping("goregister")
-	public String goregister() {
-		return "register";
+	@GetMapping("/isManager")
+	@ResponseBody
+	public Result isManager(HttpSession session) {
+		Result result = new Result();
+		TUser usersession=(TUser) (session.getAttribute("usersession"));
+		result.setData(usersession);
+		return result;
 	}
 	//注册
 	@PostMapping("/register")
@@ -109,23 +106,36 @@ public class UserController {
 		}
 	}
 
-	//跳转个人信息管理界面
-	@GetMapping("goPersonalInfo")
-	public String goPersonalInfo( Model mv, HttpSession session){
-		TUser user=(TUser) session.getAttribute("user");
-		System.out.println(user.getId());
-		mv.addAttribute("user",user);
-		mv.addAttribute("sexes",TUser.Sex.toList());
-		return "personalInfo";
+	//个人信息管理界面
+	@GetMapping("/goPersonalInfo")
+	@ResponseBody
+	public Result goPersonalInfo( HttpSession session){
+		TUser user=(TUser) session.getAttribute("usersession");
+		Result result = new Result();
+		result.setData(user);
+		return result;
 	}
 	//个人信息管理界面中:更改信息后保存
-	@PostMapping("SavePersonalInfo")
-	public String SavePersonalInfo(Model mv,HttpSession session,TUser user,BindingResult bindingResult) {
-		userService.modifyUser(user);
-		mv.addAttribute("message","修改个人信息成功！");
-		mv.addAttribute("sexes",TUser.Sex.toList());
-		mv.addAttribute("user",user);
-		return "personalInfo";
+	@PostMapping("/SavePersonalInfo")
+	@ResponseBody
+	public Result SavePersonalInfo(TUser user,HttpSession session) throws NoSuchAlgorithmException {
+		System.out.println("###################");
+		Result result = new Result();
+		if(userService.findByEmailNotId(user.getEmail(),user.getId()).size()!=0){
+			result.setDescription("该邮箱已绑定账号，修改失败！");
+			result.setCode(400);
+			return result;
+		}
+		else {
+			SHA1Test sha1Test = new SHA1Test();
+			user.setPassword(sha1Test.toHexString(user.getPassword()));
+			userService.modifyUser(user);
+			result.setDescription("修改个人信息成功！");
+			TUser usersession = userService.findById(user.getId());
+			session.setAttribute("usersession", usersession);
+			result.setData(usersession);
+			return result;
+		}
 	}
 
 }

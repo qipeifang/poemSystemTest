@@ -15,7 +15,7 @@ public interface VCollAndPoemDao extends JpaRepository<VCollAndPoem, Long> {
     @Transactional
     VCollAndPoem save(VCollAndPoem vCollAndPoem);
     //通过邮箱查询用户收藏诗歌的信息
-    @Query(value = "select * from VCollAndPoem u where email=?1 and (poetryname like ?2 or poetname like ?2 or type like ?2)",nativeQuery = true)
+     @Query(value = "select * from VCollAndPoem u where email=?1 and (poetryname like ?2 or poetname like ?2 or type like ?2)",nativeQuery = true)
     Page<VCollAndPoem> findByEmail(String email, String kw, Pageable pageable);
     @Query(value = "select * from VCollAndPoem u where email=?1 and (poetryname like ?2 or poetname like ?2 or type like ?2)",nativeQuery = true)
     List<VCollAndPoem> findByEmailAndKw(String email, String kw);

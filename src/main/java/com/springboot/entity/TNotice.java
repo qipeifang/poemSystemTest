@@ -7,13 +7,14 @@ import java.util.Date;
 @Table(name = "T_Notice", schema = "test")
 public class TNotice {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+//    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, updatable = false)
     private long id;//自增
-    private String adminemail;//管理员email
+    private String email;//管理员email
     private String content;//通知内容
     private Date time;//创建时间
-    private boolean status;//状态 是否已读
+//    private boolean status;//状态 是否已读
 
     public TNotice() {
     }
@@ -26,12 +27,12 @@ public class TNotice {
         this.id = id;
     }
 
-    public String getAdminemail() {
-        return adminemail;
+    public String getEmail() {
+        return email;
     }
 
-    public void setAdminemail(String adminemail) {
-        this.adminemail = adminemail;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getContent() {
@@ -50,11 +51,11 @@ public class TNotice {
         this.time = time;
     }
 
-    public boolean isStatus() {
-        return status;
-    }
+//    public boolean isStatus() {
+//        return status;
+//    }
 
-    public void setStatus(boolean status) {
-        this.status = status;
-    }
+//    public void setStatus(boolean status) {
+//        this.status = status;
+//    }
 }

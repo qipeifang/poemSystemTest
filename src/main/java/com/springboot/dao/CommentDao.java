@@ -18,15 +18,19 @@ public interface CommentDao extends JpaRepository<TComment, Long> {
         //保存评论
     TComment save(TComment comment);
     Optional<TComment> findByEmail(String email);
-    //通过关键字查询评论信息
-//    @Query("select c from TComment c where email like ?1 or comments like ?1 or poetryid like ?1")
-//    public Page<TComment> findByKeyword(String kw, Pageable pageable);
-
-   // Page<TComment> findAll(Pageable pageable);
 
     //通过邮箱查询用户评论的信息
-    @Query(value = "select * from TComment u where email=?1 and (comments like ?2 or poetryname like ?2)",nativeQuery = true)
+    @Query(value = "select * from t_comment u where email=?1 and (comments like ?2 or poetryname like ?2)",nativeQuery = true)
     Page<TComment> findByEmail(String email, String kw, Pageable pageable);
-    @Query(value = "select * from TComment u where email=?1 and (comments like ?2 or poetryname like ?2)",nativeQuery = true)
+    @Query(value = "select * from t_comment u where email=?1 and (comments like ?2 or poetryname like ?2)",nativeQuery = true)
     List<TComment> findByEmailAndKw(String email, String kw);
+
+
+    //管理员通过关键字查询评论信息
+    @Query("select u from TComment u where comments like ?1 or email like ?1 or poetryname like ?1")
+    public List<TComment> findByKeyword(String kw);
+
+    //通过poetryid查询评论信息
+    @Query("select u from TComment u where poetryid like ?1")
+    public List<TComment> findByPoetryid(Long poetryid);
 }

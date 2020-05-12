@@ -38,6 +38,12 @@ public  class UserImp implements UserService {
          List<TUser> userList=UserImp.toList(userDao.findByEmail(email));
          return userList;
     }
+    //找到除当前id外有没有对应邮箱行
+    @Override
+    public List<TUser> findByEmailNotId(String email, long id) {
+        return userDao.findByEmailAndIdNot(email,id);
+    }
+
     //Optional转换为List
 		public static <T> List <T> toList(Optional<T> optional){
 			return optional.map(Collections::singletonList).orElse(Collections.emptyList());
@@ -61,16 +67,16 @@ public  class UserImp implements UserService {
         }
         return null;//其他一切返回null对象
     }
-//
+
     @Override
     public void saveUser(TUser u) throws Exception{
         try{
             userDao.save(u);
         }catch (Exception ex){
-         throw ex;
-    }
+            throw ex;
+        }
 
-}
+    }
 
     @Override
     public List<TUser> findAll() {
@@ -113,7 +119,6 @@ public  class UserImp implements UserService {
     public TUser findByEmail(String email) {
         return userDao.findByEmail(email).get();
     }
-
 
     //分页查询
     @Override
@@ -173,4 +178,6 @@ public  class UserImp implements UserService {
 //            return userDao.pageAll();
 //        }
 //    }
+
+
 }

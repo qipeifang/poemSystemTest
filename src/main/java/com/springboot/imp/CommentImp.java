@@ -5,13 +5,13 @@ import com.springboot.entity.TComment;
 import com.springboot.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -34,7 +34,20 @@ public class CommentImp implements CommentService {
         return commentDao.findByEmailAndKw(email,kw);
     }
 
+    @Override
+    public List<TComment> adminshowAll(String kw) {
+        return commentDao.findByKeyword(kw);
+    }
 
+    @Override
+    public void WriteComment(TComment comment) {
+        commentDao.save(comment);
+    }
+
+    @Override
+    public List<TComment> poetry_listcomments(Long poetryid) {
+        return commentDao.findByPoetryid(poetryid);
+    }
 
 //    @Override
 //    public void addComment(TComment comment) {

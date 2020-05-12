@@ -17,7 +17,7 @@ public class TUser {
     private String password;
     @NotNull
     private String email;//邮箱
-   // private String gender;//“男” “女”
+    private String gender;//“男” “女”
     private int isManager;//是否为管理员 0:不是管理员 1:是管理员
     private int isVIP;//是否为会员 0:是会员   1:不是会员
     private int grade;//用户等级
@@ -106,6 +106,14 @@ public class TUser {
 
     public void setGrander(Sex grander) {
         this.grander = grander;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
     @Override

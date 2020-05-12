@@ -9,7 +9,7 @@ import java.util.Date;
 @Table(name = "T_Comment", schema = "test")
 public class TComment {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, updatable = false)
     private long id;//自增
     private String email;//评论者邮箱
@@ -17,7 +17,7 @@ public class TComment {
     private Date time;//发表时间
     private String comments;//评论内容
     private long poetryid;//诗词类id
-
+    private String poetryname;
     public TComment() {
     }
 
@@ -59,5 +59,12 @@ public class TComment {
 
     public void setPoetryid(long poetryid) {
         this.poetryid = poetryid;
+    }
+    public String getPoetryname() {
+        return poetryname;
+    }
+
+    public void setPoetryname(String poetryname) {
+        this.poetryname = poetryname;
     }
 }

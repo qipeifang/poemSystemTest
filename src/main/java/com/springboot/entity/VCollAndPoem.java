@@ -1,5 +1,7 @@
 package com.springboot.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -12,10 +14,14 @@ public class VCollAndPoem {
     private long id;
     private String email;//收藏者邮箱
     private int poetryid;//被收藏诗词id
-    private String poetryname;//古诗名
-    private String type;//类别
-    private String poetname;//作者名
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date time;//收藏时间
+    private String poetryname;//古诗名
+    private int typeid;
+    private String type;//类别
+    private int authoruid;
+    private String poetname;//作者名
+
 
     public VCollAndPoem() {
     }
@@ -44,12 +50,28 @@ public class VCollAndPoem {
         this.poetryid = poetryid;
     }
 
+    public Date getTime() {
+        return time;
+    }
+
+    public void setTime(Date time) {
+        this.time = time;
+    }
+
     public String getPoetryname() {
         return poetryname;
     }
 
     public void setPoetryname(String poetryname) {
         this.poetryname = poetryname;
+    }
+
+    public int getTypeid() {
+        return typeid;
+    }
+
+    public void setTypeid(int typeid) {
+        this.typeid = typeid;
     }
 
     public String getType() {
@@ -60,19 +82,19 @@ public class VCollAndPoem {
         this.type = type;
     }
 
+    public int getAuthoruid() {
+        return authoruid;
+    }
+
+    public void setAuthoruid(int authoruid) {
+        this.authoruid = authoruid;
+    }
+
     public String getPoetname() {
         return poetname;
     }
 
     public void setPoetname(String poetname) {
         this.poetname = poetname;
-    }
-
-    public Date getTime() {
-        return time;
-    }
-
-    public void setTime(Date time) {
-        this.time = time;
     }
 }

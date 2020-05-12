@@ -29,6 +29,28 @@ public class NoticeImp implements NoticeService {
 
     @Override
     public List<TNotice> showAll(String email, String kw) {
+
         return noticeDao.findByEmailAndKw(email,kw);
     }
+
+    @Override
+    public List<TNotice> adminshowAll(String kw) {
+        return null;
+    }
+
+    @Override
+    public void WriteNotice(TNotice notice) {
+        noticeDao.save(notice);
+    }
+
+//    @Override
+//    public void Write(TNotice notice) {
+//        noticeDao.save(notice);
+//    }
+
+    @Override
+    public List<TNotice> usershowAll() {
+        return noticeDao.findAll();
+    }
+
 }
